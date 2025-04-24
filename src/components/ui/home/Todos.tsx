@@ -5,6 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import { IResponse } from "../../../types/response";
 import { useAtom } from "jotai";
 import { searchAtom } from "../../../jotai/atoms";
+import config from "../../../config";
 
 const Todos = () => {
   const atom = useAtom(searchAtom);
@@ -17,7 +18,7 @@ const Todos = () => {
     queryKey: ["todos", atom[0]],
     queryFn: async () => {
       const response = await fetch(
-        `http://localhost/todo/server/find?searchTerm=${atom[0]}`
+        `${config.API_URL}/find?searchTerm=${atom[0]}`
       );
       const data = response.json();
       return data;

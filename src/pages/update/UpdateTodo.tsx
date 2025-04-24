@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import Container from "../../components/Container";
 import UpdateTodoForm from "../../components/ui/update/UpdateTodoForm";
 import { useQuery } from "@tanstack/react-query";
+import config from "../../config";
 
 const UpdateTodo = () => {
   const { id } = useParams();
@@ -10,7 +11,7 @@ const UpdateTodo = () => {
     queryKey: ["todos"],
     queryFn: async () => {
       const response = await fetch(
-        `http://localhost/todo/server/todo?id=${id}`
+        `${config.API_URL}/todo?id=${id}`
       );
       const data = await response.json();
       return data;

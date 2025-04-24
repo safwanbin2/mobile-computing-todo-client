@@ -8,6 +8,7 @@ import { ITodo } from "../../../types/todo";
 import { useMutation } from "@tanstack/react-query";
 import { queryClient } from "../../../main";
 import { toast } from "sonner";
+import config from "../../../config";
 
 type TProps = {
   todo: ITodo;
@@ -21,7 +22,7 @@ const UpdateTodoForm = ({ todo }: TProps) => {
   const { mutate, isPending } = useMutation({
     mutationFn: async (values: Partial<ITodo>) => {
       const response = await fetch(
-        `http://localhost/todo/server/todo?id=${todo?.id}`,
+        `${config.API_URL}/todo?id=${todo?.id}`,
         {
           method: "PATCH",
           headers: {

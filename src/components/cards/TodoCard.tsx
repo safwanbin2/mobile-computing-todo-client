@@ -6,6 +6,7 @@ import { toast } from "sonner";
 import { Link } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 import { queryClient } from "../../main";
+import config from "../../config";
 
 interface IProps {
   todo: ITodo;
@@ -17,7 +18,7 @@ const TodoCard = ({ todo }: IProps) => {
   const { mutate: deleteTodoMutation } = useMutation({
     mutationFn: async (id: number) => {
       const response = await fetch(
-        `http://localhost/todo/server/todo?id=${id}`,
+        `${config.API_URL}/todo?id=${id}`,
         {
           method: "DELETE",
         }
@@ -49,7 +50,7 @@ const TodoCard = ({ todo }: IProps) => {
   const { mutate: markCompleteMutation } = useMutation({
     mutationFn: async (id: number) => {
       const response = await fetch(
-        `http://localhost/todo/server/mark-completed?id=${id}`,
+        `${config.API_URL}/mark-completed?id=${id}`,
         {
           method: "PATCH",
           headers: {

@@ -8,6 +8,7 @@ import { useMutation } from "@tanstack/react-query";
 import { queryClient } from "../../../main";
 import { ITodo } from "../../../types/todo";
 import { toast } from "sonner";
+import config from "../../../config";
 
 const defaultValues = {
   title: "",
@@ -18,7 +19,7 @@ const CreateTodoForm = () => {
 
   const { mutate, isPending, isError } = useMutation({
     mutationFn: async (newTodo: Partial<ITodo>) => {
-      const response = await fetch(`http://localhost/todo/server/todos`, {
+      const response = await fetch(`${config.API_URL}/todos`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
