@@ -3,9 +3,12 @@ import Container from "../components/Container";
 import Todos from "../components/ui/home/Todos";
 import React from "react";
 import { searchAtom } from "../jotai/atoms";
+import { useDebouncedAtom } from "../hooks/useDebounce";
 
 const Home = () => {
-  const [searchTerm, setSearchTerm] = useAtom<string>(searchAtom);
+  const [, setSearchTerm] = useAtom(searchAtom);
+  const [inputValue, setInputValue] = useDebouncedAtom<string>("", setSearchTerm, 400);
+
   return (
     <div>
       <Container className="space-y-5">
@@ -18,15 +21,13 @@ const Home = () => {
             type="text"
             placeholder="Search"
             className="border px-2 py-[6px] rounded-md border-gray-400 focus:outline-none text-gray-500 w-full"
-            value={searchTerm}
+            value={inputValue}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              setSearchTerm(e.target.value)
+              setInputValue(e.target.value)
             }
           />
         </div>
-        <>
-          <Todos />
-        </>
+        <Todos />
       </Container>
     </div>
   );
